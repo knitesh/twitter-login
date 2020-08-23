@@ -1,6 +1,6 @@
 {
   "name": "twitter-login",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "Twitter Login package using oAuth v1.0",
   "main": "./src/index.js",
   "scripts": {
