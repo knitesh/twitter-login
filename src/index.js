@@ -1,4 +1,5 @@
 const axios = require('axios')
+//https://github.com/ddo/oauth-1.0a
 const OAuth = require('oauth-1.0a')
 const crypto = require('crypto')
 const querystring = require('querystring')
@@ -24,6 +25,9 @@ const validateTwitterAppConfig = (config) => {
   }
 }
 
+const hashFunctionSha1 = (base_string, key) =>
+  crypto.createHmac('sha1', key).update(base_string).digest('base64')
+
 function TwitterLogin(twitterAppConfig) {
   // Extract required App Config
   const {
@@ -33,18 +37,14 @@ function TwitterLogin(twitterAppConfig) {
   } = twitterAppConfig
 
   // initialize oAUTH
-  const _oauth = OAuth({
+  const oauth = OAuth({
     consumer: {
       key: consumerKey,
       secret: consumerSecret,
     },
     signature_method: 'HMAC-SHA1',
-    hash_function: (baseString, key) => {
-      return crypto
-        .createHmac('sha1', key)
-        .update(baseString)
-        .digest('base64')
-    },
+    hash_function: (baseString, key) =>
+      hashFunctionSha1(baseString, key),
   })
 
   // Check all required options exist for calling Twitter API
@@ -64,19 +64,18 @@ function TwitterLogin(twitterAppConfig) {
       url: requestData.url,
       method: requestData.method,
       form: requestData.data,
-      headers: _oauth.toHeader(_oauth.authorize(requestData)),
+      headers: oauth.toHeader(oauth.authorize(requestData)),
     }
 
     return new Promise(async (resolve, reject) => {
       const responseHandler = (data) => {
         const {
-          oauth_token: token,
+          oauth_token: oAuthToken,
           oauth_token_secret: tokenSecret,
-          oauth_callback_confirmed: callbackConfirmed,
+          oauth_callback_confirmed: oAuthCallbackConfirmed,
         } = querystring.parse(data.toString())
 
-        // Must validate that this param exists, according to Twitter docs
-        if (callbackConfirmed !== 'true') {
+        if (oAuthCallbackConfirmed !== 'true') {
           reject(
             new Error(
               'Missing `oauth_callback_confirmed` parameter in response',
@@ -84,16 +83,16 @@ function TwitterLogin(twitterAppConfig) {
           )
         }
 
-        // Redirect visitor to this URL to authorize the app
         const url = `${TWITTER_AUTH_URL}?${querystring.stringify({
-          oauth_token: token,
+          oauth_token: oAuthToken,
         })}`
 
         resolve({ tokenSecret, url })
       }
+      // actuall call to twitter
       try {
-        const response = await axios(option)
-        responseHandler(response.data)
+        const { data } = await axios(option)
+        responseHandler(data)
       } catch (err) {
         reject(err)
       }
@@ -158,11 +157,10 @@ function TwitterLogin(twitterAppConfig) {
         url: requestData.url,
         method: requestData.method,
         form: requestData.data,
-        headers: _oauth.toHeader(_oauth.authorize(requestData)),
+        headers: oauth.toHeader(oauth.authorize(requestData)),
       }
 
       const responseHandler = (data) => {
-        // Ready to make signed requests on behalf of the user
         const {
           oauth_token: userToken,
           oauth_token_secret: userTokenSecret,
@@ -177,10 +175,10 @@ function TwitterLogin(twitterAppConfig) {
           userTokenSecret,
         })
       }
-
+      // actuall call to twitter
       try {
-        const response = await axios(option)
-        responseHandler(response.data)
+        const { data } = await axios(option)
+        responseHandler(data)
       } catch (err) {
         reject(err)
       }
