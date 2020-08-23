@@ -1,0 +1,16 @@
+{
+  "name": "twitter-login",
+  "version": "1.0.0",
+  "description": "Login package for twitter oAuth v1.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "oauth-1.0a": "^2.2.6",
+    "simple-get": "^4.0.0"
+  },
+  "author": "Kumar Nitesh",
+  "license": "MIT"
+}
