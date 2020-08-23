@@ -33,8 +33,5 @@
     "url": "git://github.com/knitesh/twitter-login.git"
   },
   "files": [],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "license": "MIT"
 }
