@@ -1,16 +1,36 @@
 {
   "name": "twitter-login",
-  "version": "1.0.0",
-  "description": "Login package for twitter oAuth v1.0",
-  "main": "src/index.js",
+  "version": "1.0.4",
+  "description": "Twitter Login package using oAuth v1.0",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "axios": "^0.20.0",
-    "oauth-1.0a": "^2.2.6",
-    "simple-get": "^4.0.0"
+    "oauth-1.0a": "^2.2.6"
   },
-  "author": "Kumar Nitesh",
+  "keywords": [
+    "twitter",
+    "auth",
+    "oauth",
+    "twitter auth",
+    "login",
+    "twitter login",
+    "login with twitter",
+    "twitter connect",
+    "connect twitter",
+    "api",
+    "twitter api"
+  ],
+  "author": "Kumar Nitesh <contactknitesh@gmail.com>",
+  "homepage": "https://github.com/knitesh/twitter-login",
+  "bugs": {
+    "url": "https://github.com/knitesh/twitter-login/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/knitesh/twitter-login.git"
+  },
   "license": "MIT"
 }
