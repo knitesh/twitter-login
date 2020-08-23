@@ -1,7 +1,7 @@
-[![npm-version](https://img.shields.io/npm/v/twitter-login)](https://img.shields.io/npm/v/twitter-login)
+[![npm-version](https://img.shields.io/npm/v/twitter-login)](https://www.npmjs.com/package/twitter-login)
 [![GitHub issues](https://img.shields.io/github/issues/knitesh/twitter-login.svg)](https://github.com/knitesh/twitter-login/issues)
-[![GitHub forks](https://img.shields.io/github/forks/knitesh/twitter-login.svg)](https://github.com/knitesh/twitter-login/network)
-[![GitHub license](https://img.shields.io/github/license/knitesh/twitter-login.svg)](https://github.com/knitesh/twitter-login/blob/master/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/knitesh/twitter-login.svg)](https://github.com/knitesh/twitter-login/network/members)
+[![GitHub license](https://img.shields.io/github/license/knitesh/twitter-login)](https://github.com/knitesh/twitter-login/blob/master/LICENSE)
 
 ## Twitter Login. OAuth 1.0 flow
 
