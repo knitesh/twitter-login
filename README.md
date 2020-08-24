@@ -97,8 +97,7 @@ app.get('/twitter/auth/userToken', async (req, res) => {
       req.session.tokenSecret,
     )
     // Delete the tokenSecret securely
-    const [tokenSecret, ...session] = req.session
-    req.session = session
+    delete req.session.tokenSecret
     // Add User Info to your session
     req.session.user = userInfo
 
