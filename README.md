@@ -67,13 +67,12 @@ const twitter = new TwitterLogin({
   callbackUrl: 'http://localhost:$port/twitter/auth/userToken',
 })
 
-// Route where user will get directed on clicking on Login buttong
+// Route where user will get directed on clicking on Login button
 app.get('/twitter/auth', async (req, res) => {
   try {
     const result = await twitter.login()
     // Save the OAuth token secret for use in your /twitterauth/userToken Callback route
     req.session.tokenSecret = result.tokenSecret
-    console.log(result)
     // Redirect to the /twitterauth/userToken route, with the OAuth responses as query params
     res.redirect(result.url)
   } catch (err) {
@@ -100,7 +99,6 @@ app.get('/twitter/auth/userToken', async (req, res) => {
     delete req.session.tokenSecret
     // Add User Info to your session
     req.session.user = userInfo
-
     // Redirect to route that can extract user detail
     res.redirect('/')
   } catch (err) {
@@ -114,7 +112,7 @@ app.get('/', (req, res) => {
   if (_user) {
     res.send(JSON.stringify(_user))
   } else {
-    res.send('Login with Twitter')
+    res.send('Login with Twitter -http://localhost:9000/twitter/auth')
   }
 })
 
